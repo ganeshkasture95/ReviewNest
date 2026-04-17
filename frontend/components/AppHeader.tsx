@@ -29,28 +29,44 @@ export function AppHeader({ title }: { title: string }) {
             Home
           </Link>
           {user?.role === "USER" && (
-            <Link
-              href="/user/stores"
-              className="text-zinc-600 underline-offset-2 hover:text-zinc-900 hover:underline dark:text-zinc-400"
-            >
-              Stores
-            </Link>
+            <>
+              <Link
+                href="/user/stores"
+                className="text-zinc-600 underline-offset-2 hover:text-zinc-900 hover:underline dark:text-zinc-400"
+              >
+                Stores
+              </Link>
+              <Link
+                href="/user/settings"
+                className="text-zinc-600 underline-offset-2 hover:text-zinc-900 hover:underline dark:text-zinc-400"
+              >
+                Account
+              </Link>
+            </>
           )}
           {user?.role === "ADMIN" && (
             <Link
               href="/admin/dashboard"
               className="text-zinc-600 underline-offset-2 hover:text-zinc-900 hover:underline dark:text-zinc-400"
             >
-              Admin
+              Administrator
             </Link>
           )}
           {user?.role === "STORE_OWNER" && (
-            <Link
-              href="/owner/dashboard"
-              className="text-zinc-600 underline-offset-2 hover:text-zinc-900 hover:underline dark:text-zinc-400"
-            >
-              My store
-            </Link>
+            <>
+              <Link
+                href="/owner/dashboard"
+                className="text-zinc-600 underline-offset-2 hover:text-zinc-900 hover:underline dark:text-zinc-400"
+              >
+                Dashboard
+              </Link>
+              <Link
+                href="/owner/settings"
+                className="text-zinc-600 underline-offset-2 hover:text-zinc-900 hover:underline dark:text-zinc-400"
+              >
+                Account
+              </Link>
+            </>
           )}
           {user && (
             <button

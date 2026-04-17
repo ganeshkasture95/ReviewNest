@@ -59,7 +59,7 @@ export default function SignupPage() {
         </p>
         <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-700 dark:text-zinc-300">Full name (20–60 chars)</span>
+            <span className="font-medium text-zinc-700 dark:text-zinc-300">Name (20–60 characters)</span>
             <input
               required
               minLength={20}
@@ -80,6 +80,16 @@ export default function SignupPage() {
             />
           </label>
           <label className="flex flex-col gap-1 text-sm">
+            <span className="font-medium text-zinc-700 dark:text-zinc-300">Address (optional, max 400)</span>
+            <textarea
+              maxLength={400}
+              rows={2}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              className="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 outline-none ring-indigo-500 focus:ring-2 dark:border-zinc-600 dark:bg-zinc-950 dark:text-zinc-100"
+            />
+          </label>
+          <label className="flex flex-col gap-1 text-sm">
             <span className="font-medium text-zinc-700 dark:text-zinc-300">Password</span>
             <input
               type="password"
@@ -88,16 +98,6 @@ export default function SignupPage() {
               maxLength={16}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 outline-none ring-indigo-500 focus:ring-2 dark:border-zinc-600 dark:bg-zinc-950 dark:text-zinc-100"
-            />
-          </label>
-          <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-700 dark:text-zinc-300">Address (optional, max 400)</span>
-            <textarea
-              maxLength={400}
-              rows={2}
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
               className="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-900 outline-none ring-indigo-500 focus:ring-2 dark:border-zinc-600 dark:bg-zinc-950 dark:text-zinc-100"
             />
           </label>

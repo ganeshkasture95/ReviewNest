@@ -4,6 +4,7 @@ import adminRouter from "../modules/admin/admin.routes";
 import storesRouter from "../modules/stores/stores.routes";
 import ratingsRouter from "../modules/ratings/ratings.routes";
 import ownerRouter from "../modules/owner/owner.routes";
+import userProfileRouter from "../modules/user/user.routes";
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use("/admin", adminRouter);
 router.use("/stores", storesRouter);
 router.use("/ratings", ratingsRouter);
 router.use("/owner", ownerRouter);
+router.use("/user", userProfileRouter);
 
 export default router;

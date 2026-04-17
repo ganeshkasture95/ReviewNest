@@ -96,11 +96,13 @@ export default function UserStoresPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
-      <AppHeader title="Stores" />
+      <AppHeader title="Browse stores" />
       <div className="mx-auto max-w-5xl px-4 py-8">
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400">Search by store name or address.</p>
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">
+              All registered stores. Search by <strong>name</strong> or <strong>address</strong>.
+            </p>
           </div>
           <label className="flex max-w-md flex-1 flex-col gap-1 text-sm">
             <span className="font-medium text-zinc-700 dark:text-zinc-300">Search</span>
@@ -126,11 +128,11 @@ export default function UserStoresPage() {
             <table className="w-full min-w-[640px] text-left text-sm">
               <thead>
                 <tr className="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800/50">
-                  <th className="px-4 py-3 font-medium text-zinc-700 dark:text-zinc-300">Store</th>
+                  <th className="px-4 py-3 font-medium text-zinc-700 dark:text-zinc-300">Store name</th>
                   <th className="px-4 py-3 font-medium text-zinc-700 dark:text-zinc-300">Address</th>
-                  <th className="px-4 py-3 font-medium text-zinc-700 dark:text-zinc-300">Avg</th>
-                  <th className="px-4 py-3 font-medium text-zinc-700 dark:text-zinc-300">Yours</th>
-                  <th className="px-4 py-3 font-medium text-zinc-700 dark:text-zinc-300">Rate</th>
+                  <th className="px-4 py-3 font-medium text-zinc-700 dark:text-zinc-300">Overall rating</th>
+                  <th className="px-4 py-3 font-medium text-zinc-700 dark:text-zinc-300">Your rating</th>
+                  <th className="px-4 py-3 font-medium text-zinc-700 dark:text-zinc-300">Submit or update</th>
                 </tr>
               </thead>
               <tbody>
@@ -148,19 +150,26 @@ export default function UserStoresPage() {
                       <td className="px-4 py-3 text-zinc-800 dark:text-zinc-200">
                         {s.averageRating != null ? s.averageRating.toFixed(2) : "—"}
                       </td>
-                      <td className="px-4 py-3">{s.yourRating ? `${s.yourRating.rating} ★` : "—"}</td>
+                      <td className="px-4 py-3 tabular-nums">
+                        {s.yourRating != null ? `${s.yourRating.rating} / 5` : "Not rated yet"}
+                      </td>
                       <td className="px-4 py-3">
-                        <div className="flex flex-wrap items-center gap-2">
+                        <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2">
+                          <label className="sr-only" htmlFor={`rating-${s.id}`}>
+                            Star rating 1–5
+                          </label>
                           <select
+                            id={`rating-${s.id}`}
                             value={ratingInputs[s.id] ?? s.yourRating?.rating ?? 3}
                             onChange={(e) =>
                               setRatingInputs((prev) => ({ ...prev, [s.id]: Number(e.target.value) }))
                             }
-                            className="rounded border border-zinc-300 bg-white px-2 py-1 text-zinc-900 dark:border-zinc-600 dark:bg-zinc-950 dark:text-zinc-100"
+                            className="rounded border border-zinc-300 bg-white px-2 py-1 text-sm text-zinc-900 dark:border-zinc-600 dark:bg-zinc-950 dark:text-zinc-100"
+                            aria-label={`Rating for ${s.name}`}
                           >
                             {[1, 2, 3, 4, 5].map((n) => (
                               <option key={n} value={n}>
-                                {n}
+                                {n} star{n > 1 ? "s" : ""}
                               </option>
                             ))}
                           </select>
@@ -170,7 +179,7 @@ export default function UserStoresPage() {
                             onClick={() => saveRating(s)}
                             className="rounded-md bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-indigo-500 disabled:opacity-50"
                           >
-                            {s.yourRating ? "Update" : "Rate"}
+                            {s.yourRating ? "Update my rating" : "Submit rating"}
                           </button>
                         </div>
                       </td>

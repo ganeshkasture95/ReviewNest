@@ -133,7 +133,28 @@ export const listAdminUsers = async (req: Request, res: Response): Promise<void>
     orderBy: { id: "asc" },
   });
 
-  res.status(200).json({ users });
+  const ownerIds = users.filter((u) => u.role === Role.STORE_OWNER).map((u) => u.id);
+  const ownerRatingAvg = new Map<number, number | null>();
+  if (ownerIds.length > 0) {
+    await Promise.all(
+      ownerIds.map(async (ownerId) => {
+        const agg = await prisma.rating.aggregate({
+          where: { store: { ownerId } },
+          _avg: { rating: true },
+        });
+        ownerRatingAvg.set(ownerId, agg._avg.rating ?? null);
+      }),
+    );
+  }
+
+  const payload = users.map((u) => ({
+    ...u,
+    ...(u.role === Role.STORE_OWNER
+      ? { storeRatingAverage: ownerRatingAvg.get(u.id) ?? null }
+      : {}),
+  }));
+
+  res.status(200).json({ users: payload });
 };
 
 export const listAdminStores = async (req: Request, res: Response): Promise<void> => {

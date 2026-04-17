@@ -112,7 +112,7 @@ export default function OwnerDashboardClient() {
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
-      <AppHeader title="Store owner" />
+      <AppHeader title="Store owner dashboard" />
       <div className="mx-auto max-w-5xl space-y-8 px-4 py-8">
         {error && (
           <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-800 dark:bg-red-950/40 dark:text-red-200">
@@ -125,7 +125,12 @@ export default function OwnerDashboardClient() {
         ) : (
           <>
             <section>
-              <h2 className="mb-3 text-lg font-semibold text-zinc-900 dark:text-zinc-50">Your stores</h2>
+              <h2 className="mb-3 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+                Your stores and average ratings
+              </h2>
+              <p className="mb-4 text-sm text-zinc-600 dark:text-zinc-400">
+                Average rating is computed from all stars submitted for each store you own.
+              </p>
               {dashboardStores.length === 0 ? (
                 <p className="text-zinc-600 dark:text-zinc-400">
                   No stores assigned yet. An admin must create a store with you as owner.
@@ -140,11 +145,11 @@ export default function OwnerDashboardClient() {
                       <p className="font-semibold text-zinc-900 dark:text-zinc-50">{s.name}</p>
                       <p className="text-sm text-zinc-600 dark:text-zinc-400">{s.address}</p>
                       <p className="mt-2 text-sm">
-                        Avg:{" "}
+                        <span className="text-zinc-600 dark:text-zinc-400">Average rating:</span>{" "}
                         <span className="font-medium tabular-nums">
                           {s.averageRating != null ? s.averageRating.toFixed(2) : "—"}
                         </span>{" "}
-                        · {s.totalRatings} rating(s)
+                        <span className="text-zinc-500">({s.totalRatings} submitted)</span>
                       </p>
                       {dashboardStores.length > 1 && (
                         <button
@@ -165,7 +170,7 @@ export default function OwnerDashboardClient() {
               <section>
                 <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
                   <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-                    Ratings · {ratingsData.store.name}
+                    Users who rated · {ratingsData.store.name}
                   </h2>
                   {dashboardStores.length > 1 && (
                     <label className="flex items-center gap-2 text-sm">
@@ -185,7 +190,7 @@ export default function OwnerDashboardClient() {
                   )}
                 </div>
                 <p className="mb-4 text-sm text-zinc-600 dark:text-zinc-400">
-                  Average:{" "}
+                  <span className="font-medium text-zinc-800 dark:text-zinc-200">Average rating for this store:</span>{" "}
                   <strong className="tabular-nums text-zinc-900 dark:text-zinc-100">
                     {ratingsData.store.averageRating != null
                       ? ratingsData.store.averageRating.toFixed(2)
@@ -196,9 +201,9 @@ export default function OwnerDashboardClient() {
                   <table className="w-full min-w-[480px] text-left text-sm">
                     <thead>
                       <tr className="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800/50">
-                        <th className="px-3 py-2 font-medium">User</th>
+                        <th className="px-3 py-2 font-medium">User name</th>
                         <th className="px-3 py-2 font-medium">Email</th>
-                        <th className="px-3 py-2 font-medium">Rating</th>
+                        <th className="px-3 py-2 font-medium">Submitted rating</th>
                       </tr>
                     </thead>
                     <tbody>
