@@ -1,0 +1,3 @@
+# Copy to .env.local and adjust if your API port differs.
+# NEXT_PUBLIC_API_URL must include the /api prefix.
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
